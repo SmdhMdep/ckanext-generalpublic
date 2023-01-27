@@ -1,0 +1,14 @@
+# generalpublic-js:
+#   filter: rjsmin
+#   output: ckanext-generalpublic/%(version)s-generalpublic.js
+#   contents:
+#     - js/generalpublic.js
+#   extra:
+#     preload:
+#       - base/main
+
+# generalpublic-css:
+#   filter: cssrewrite
+#   output: ckanext-generalpublic/%(version)s-generalpublic.css
+#   contents:
+#     - css/generalpublic.css

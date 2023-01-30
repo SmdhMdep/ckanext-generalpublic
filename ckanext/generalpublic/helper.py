@@ -17,9 +17,11 @@ def is_public(packageid):
 
     visibility = tk.get_action('get_package_visibility')({'ignore_auth': True}, data)
 
-    if visibility.visibility == "Protected":
-        return False
-    else:
+    try: 
+        if visibility.visibility == "Protected":
+            return False
+        else:
+            return True
+    except:
         return True
-
     

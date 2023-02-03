@@ -1,4 +1,4 @@
-[![Tests](https://github.com//ckanext-generalpublic/workflows/Tests/badge.svg?branch=main)](https://github.com//ckanext-generalpublic/actions)
+[![Tests](https://github.com/SmdhMdep/ckanext-generalpublic/actions/workflows/test.yml/badge.svg)](https://github.com/SmdhMdep/ckanext-generalpublic/actions/workflows/test.yml)
 
 # ckanext-generalpublic
 

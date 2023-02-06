@@ -11,7 +11,7 @@ from ckanext.generalpublic import helper as h
 
 import pytest
 
-@pytest.mark.ckan_config('ckan.plugins','generalpublic')
+@pytest.mark.ckan_config('ckan.plugins','generalpublic granularvisibility')
 @pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context')
 def test_public_access_to_resource(app):
     '''

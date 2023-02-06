@@ -34,10 +34,10 @@ jobs:
     - name: Install requirements
       # Install any extra requirements your extension has here (dev requirements, other extensions etc)
       run: |
+        pip3 install -e 'git+https://github.com/SmdhMdep/ckanext-granularvisibility.git@main#egg=ckanext-granularvisibility'
         pip install -r requirements.txt
         pip install -r dev-requirements.txt
         pip install -e .
-        pip3 install -e 'git+https://github.com/SmdhMdep/ckanext-granularvisibility.git@main#egg=ckanext-granularvisibility'
         
     - name: Setup extension
       # Extra initialization steps

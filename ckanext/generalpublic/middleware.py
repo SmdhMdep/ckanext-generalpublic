@@ -42,11 +42,14 @@ class AuthMiddleware(object):
 
             ispublic = toolkit.get_action('get_package_visibility')({'ignore_auth': True}, data2)
 
-            if ispublic.visibility == "Public":
-                return self.app(environ,start_response)
-            else:
+            try:
+                if ispublic.visibility == "Public":
+                    return self.app(environ,start_response)
+                else:
+                    self.goToLogin(environ,start_response)
+            except:
                 self.goToLogin(environ,start_response)
-
+                
             return ['']
 
         # Dont allow API

@@ -34,13 +34,9 @@ class AuthMiddleware(object):
 
             x = pathInfo.split("/")
 
-            data = {'id': x[2]}
+            data = {'packageid': x[2]}
 
-            testers  = toolkit.get_action('package_show')({'ignore_auth': True}, data)
-
-            data2 = {'packageid': testers["id"]}
-
-            ispublic = toolkit.get_action('get_package_visibility')({'ignore_auth': True}, data2)
+            ispublic = toolkit.get_action('get_package_visibility')({'ignore_auth': True}, data)
 
             try:
                 if ispublic.visibility == "Public":

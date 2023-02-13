@@ -48,8 +48,8 @@ class AuthMiddleware(object):
                 
             return ['']
 
-        # Dont allow API
-        elif '/api/' in pathInfo or '/datastore/dump/' in pathInfo:
+        # Dont allow datastore dump
+        elif '/datastore/dump/' in pathInfo:
             self.goToLogin(environ,start_response)
             return ['']
         

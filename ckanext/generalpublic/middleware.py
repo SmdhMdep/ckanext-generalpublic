@@ -25,7 +25,7 @@ class AuthMiddleware(object):
             return self.app(environ,start_response)
 
         # Dont allow downloads/uploads
-        elif '/uploads/' in pathInfo or '/download/' in pathInfo:
+        elif '/download/' in pathInfo:
             self.goToLogin(environ,start_response)
             return ['']
 

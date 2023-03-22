@@ -24,11 +24,6 @@ class AuthMiddleware(object):
         if 'repoze.who.identity' in environ or self._get_user_for_apikey(environ):
             return self.app(environ,start_response)
 
-        # Dont allow downloads/uploads
-        elif '/download/' in pathInfo:
-            self.goToLogin(environ,start_response)
-            return ['']
-
         # Dont allow resource
         elif '/resource/' in pathInfo:
 
@@ -46,6 +41,11 @@ class AuthMiddleware(object):
             except:
                 self.goToLogin(environ,start_response)
                 
+            return ['']
+
+        # Dont allow downloads/uploads
+        elif '/download/' in pathInfo:
+            self.goToLogin(environ,start_response)
             return ['']
 
         # Dont allow datastore dump

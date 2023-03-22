@@ -13,15 +13,13 @@ def is_public(packageid):
 
     data = {'packageid': packageid}
 
-    #TODO: get list of all visibilies that have Ckanmapping false and make them return a false
-
     visibility = tk.get_action('get_package_visibility')({'ignore_auth': True}, data)
 
     try: 
-        if visibility.visibility == "Protected":
-            return False
-        else:
+        if visibility.visibility == "Public":
             return True
+        else:
+            return False
     except:
-        return True
+        return False
     

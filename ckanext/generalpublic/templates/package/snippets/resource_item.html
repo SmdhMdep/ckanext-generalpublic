@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% block resource_item_explore_links %}
-{%if h.is_public(pkg.id) %}
+{%if h.is_public(pkg.id) or c.userobj%}
   <li>
     <a href="{{ url }}">
       {% if not is_activity_archive and res.has_views %}

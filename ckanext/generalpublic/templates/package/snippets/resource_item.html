@@ -1,7 +1,7 @@
 {% ckan_extends %}
 
 {% block resource_item_explore_links %}
-{%if h.is_public(pkg.id) %}
+{%if h.is_public(pkg.id) or c.userobj%}
   <li>
     <a href="{{ url }}">
       {% if not is_activity_archive and res.has_views %}
@@ -36,7 +36,7 @@
   {% endif %}
 {% else %}
   <li>
-    <a href="https://smdh.uk/#register">
+    <a href="https://mdep.smdh.uk/user/saml2login">
       <i class="fa fa-info-circle"></i>
       {{ _('Get Access to this data') }}
     </a>

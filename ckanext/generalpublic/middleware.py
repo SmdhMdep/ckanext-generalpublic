@@ -1,10 +1,11 @@
 # Uses a lot of code from ckanext-noanonaccess
-
+import six
 import logging
 import ckan.model as model
 import ckan.plugins.toolkit as toolkit
 from ckan.plugins.toolkit import config
 import ckan.lib.base as base
+from ckan.lib import api_token as ckan_api_token
 logger = logging.getLogger(__name__)
 
 c = toolkit.c
@@ -41,17 +42,17 @@ class AuthMiddleware(object):
             except:
                 self.goToLogin(environ,start_response)
                 
-            return ['']
+            return [b'']
 
         # Dont allow downloads/uploads
         elif '/download/' in pathInfo:
             self.goToLogin(environ,start_response)
-            return ['']
+            return [b'']
 
         # Dont allow datastore dump
         elif '/datastore/dump/' in pathInfo:
             self.goToLogin(environ,start_response)
-            return ['']
+            return [b'']
         
         # Any other pages allow
         else:
@@ -104,18 +105,23 @@ class AuthMiddleware(object):
         # Adapted from https://github.com/ckan/ckan/blob/625b51cdb0f1697add59c7e3faf723a48c8e04fd/ckan/lib/base.py#L396
         apikey_header_name = config.get(base.APIKEY_HEADER_NAME_KEY,
                                         base.APIKEY_HEADER_NAME_DEFAULT)
+        
         apikey = environ.get(apikey_header_name, '')
         if not apikey:
             # For misunderstanding old documentation (now fixed).
-            apikey = environ.get('HTTP_AUTHORIZATION', '')
+            apikey = environ.get(u'HTTP_AUTHORIZATION', u'')
         if not apikey:
-            apikey = environ.get('Authorization', '')
+            apikey = environ.get(u'Authorization', u'')
             # Forget HTTP Auth credentials (they have spaces).
-            if ' ' in apikey:
-                apikey = ''
+            if u' ' in apikey:
+                apikey = u''
         if not apikey:
             return None
+        apikey = six.ensure_text(apikey, errors=u"ignore")
         # check if API key is valid by comparing against keys of registered users
         query = model.Session.query(model.User)
         user = query.filter_by(apikey=apikey).first()
+
+        if not user:
+            user = ckan_api_token.get_user_from_token(apikey)
         return user
